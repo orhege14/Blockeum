@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeBlocks Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/blockly@10.0.0/blockly.min.js"></script>
+    <script src="https://unpkg.com/blockly@10.0.0/javascript_compressed.js"></script>
+    <script src="https://unpkg.com/blockly@10.0.0/python_compressed.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-theme="dark">
+    <header class="titlebar">
+        <div class="brand">
+            <div class="brand-mark"><i class="fas fa-cube"></i></div>
+            <div>
+                <h1>CodeBlocks Studio</h1>
+                <p>Professional visual programming IDE</p>
+            </div>
+        </div>
+        <nav class="language-selector">
+            <button class="lang-btn" data-lang="javascript"><i class="fab fa-js"></i><span>JavaScript</span></button>
+            <button class="lang-btn" data-lang="python"><i class="fab fa-python"></i><span>Python</span></button>
+            <button class="lang-btn" data-lang="csharp"><i class="fas fa-hashtag"></i><span>C#</span></button>
+            <button class="lang-btn" data-lang="html"><i class="fab fa-html5"></i><span>HTML/CSS/JS</span></button>
+        </nav>
+        <div class="action-buttons">
+            <button id="newProjectBtn" class="tool-btn"><i class="fas fa-plus"></i><span>New</span></button>
+            <button id="saveProjectBtn" class="tool-btn"><i class="fas fa-save"></i><span>Save</span></button>
+            <button id="copyBtn" class="tool-btn"><i class="fas fa-copy"></i><span>Copy</span></button>
+            <button id="downloadBtn" class="tool-btn"><i class="fas fa-download"></i><span>Download</span></button>
+            <button id="exportBtn" class="tool-btn"><i class="fas fa-file-export"></i><span>Export</span></button>
+            <button id="importBtn" class="tool-btn"><i class="fas fa-file-import"></i><span>Import</span></button>
+            <button id="themeBtn" class="tool-btn"><i class="fas fa-circle-half-stroke"></i><span>Theme</span></button>
+            <button id="runBtn" class="run-btn"><i class="fas fa-play"></i><span>Run</span></button>
+            <input id="importFile" type="file" accept=".json" hidden>
+        </div>
+    </header>
+
+    <main class="ide-shell">
+        <aside class="activitybar">
+            <button class="activity active" title="Explorer"><i class="fas fa-folder-tree"></i></button>
+            <button class="activity" title="Blocks"><i class="fas fa-cubes"></i></button>
+            <button class="activity" title="Search"><i class="fas fa-search"></i></button>
+        </aside>
+
+        <aside class="sidebar">
+            <section class="side-section">
+                <h2>Explorer</h2>
+                <label class="project-name">
+                    <span>Project</span>
+                    <input id="projectName" type="text" value="codeblocks-project">
+                </label>
+                <div id="fileTree" class="file-tree"></div>
+            </section>
+            <section class="side-section">
+                <h2>Block Search</h2>
+                <input id="blockSearch" class="search-input" type="search" placeholder="Search categories">
+            </section>
+            <section class="side-section">
+                <h2>Favorite Blocks</h2>
+                <div id="favoriteBlocks" class="favorite-list"></div>
+            </section>
+        </aside>
+
+        <section class="workspace-region">
+            <div class="panel-header">
+                <div>
+                    <h2>Visual Workspace</h2>
+                    <p>Drag blocks, compose logic, generate production code.</p>
+                </div>
+                <span id="blockCount" class="pill">0 blocks</span>
+            </div>
+            <div id="blocklyDiv"></div>
+        </section>
+
+        <aside class="properties-panel">
+            <div class="panel-header compact">
+                <div>
+                    <h2>Properties</h2>
+                    <p>Selected block details</p>
+                </div>
+            </div>
+            <div id="propertyPanel" class="property-content"></div>
+        </aside>
+
+        <section class="bottom-panel">
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="code"><i class="fas fa-code"></i><span>Code</span></button>
+                <button class="tab-btn" data-tab="console"><i class="fas fa-terminal"></i><span>Console</span></button>
+                <button class="tab-btn" data-tab="preview"><i class="fas fa-eye"></i><span>Preview</span></button>
+            </div>
+            <div class="tab-content">
+                <div id="codeView" class="tab-pane active"><div id="monacoEditor"></div></div>
+                <div id="consoleView" class="tab-pane"><div class="console-output"><pre>Ready.</pre></div></div>
+                <div id="previewView" class="tab-pane"><iframe id="previewFrame" sandbox="allow-scripts"></iframe></div>
+            </div>
+            <footer class="status-bar">
+                <span id="currentLang">JavaScript</span>
+                <span id="lineCount">1 line</span>
+                <span>Ctrl+S save | Ctrl+Enter run | Ctrl+N new</span>
+            </footer>
+        </section>
+    </main>
+
+    <div id="toolboxMount"></div>
+    <script type="module" src="./core/app.js"></script>
+</body>
+
+</html>
